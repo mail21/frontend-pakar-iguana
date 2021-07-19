@@ -7,7 +7,7 @@ export const initialState = {
   isSignout: true,
   token: '',
   // api: 'http://127.0.0.1:8000/api/v1',
-  api: 'https://backend-seminar.herokuapp.com/api/v1',
+  api: 'https://backend-iguana.herokuapp.com/api/v1',
   number: 0,
 };
 

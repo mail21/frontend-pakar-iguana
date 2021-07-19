@@ -36,7 +36,7 @@ const EventComponent = () => {
           <ActivityIndicator size="large" color="white" />
         </View>
       ) : (
-        <ScrollView style={{ marginBottom: 30 }}>
+        <ScrollView>
           {data.map((el, i) => (
             <CardEvent
               key={i}

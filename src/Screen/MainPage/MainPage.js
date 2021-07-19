@@ -1,8 +1,10 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import BantuanPage from './../BantuanPage/BantuanPage';
+import DaftarPenyakitPage from './../DaftarPenyakitPage/DaftarPenyakitPage';
 import AboutPage from './../AboutPage/AboutPage';
 import DashboardPage from './../DashboardPage/DashboardPage';
+import KonsultasiPage from './../KonsultasiPage/KonsultasiPage';
 import CustomDrawerContent from './../../components/CustomDrawerContent';
 
 function MainPage() {
@@ -14,7 +16,8 @@ function MainPage() {
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
         <Drawer.Screen name="Home" component={DashboardPage} />
-        <Drawer.Screen name="Daftar Penyakit" component={AboutPage} />
+        <Drawer.Screen name="Daftar Penyakit" component={DaftarPenyakitPage} />
+        <Drawer.Screen name="Konsultasi" component={KonsultasiPage} />
         <Drawer.Screen name="About" component={AboutPage} />
         <Drawer.Screen name="Bantuan" component={BantuanPage} />
       </Drawer.Navigator>

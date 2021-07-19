@@ -27,39 +27,35 @@ const LoginAdminPage = ({ navigation }) => {
   const dimensions = Dimensions.get('window');
 
   const signIn = async (data) => {
-    // In a production app, we need to send some data (usually username, password) to server and get a token
-    // We will also need to handle errors if sign in failed
-    // After getting token, we need to persist the token using `SecureStore`
-    // In the example, we'll use a dummy token
-    setModalVisible(!modalVisible);
-    await axios
-      .post(`${api}/login`, data)
-      .then((res) => {
-        // console.log(res.data.token);
-        setModalVisible(!modalVisible);
-        dispatch({
-          type: 'LOGIN_ADD_USER',
-          payload: {
-            username: data.username,
-            fullname: res.data.user.nama_lengkap,
-            role_user: res.data.user.role,
-          },
-        });
-        dispatch({
-          type: 'LOGIN',
-          token: res.data.token,
-        });
-        // dispatch({ type: 'UPDATE_LOADING' });
-      })
-      .catch((res) => {
-        // setMessage(res.response.data.error);
-        // setLoginResultError(true);
-        // console.log(res.response);
-        // console.log(res.response.data.error);
-        setModalVisible(false);
-        ToastAndroid.show(res.response.data.error, ToastAndroid.SHORT);
-      });
-    setModalVisible(false);
+    // setModalVisible(!modalVisible);
+    // await axios
+    //   .post(`${api}/login`, data)
+    //   .then((res) => {
+    //     // console.log(res.data.token);
+    //     setModalVisible(!modalVisible);
+    //     dispatch({
+    //       type: 'LOGIN_ADD_USER',
+    //       payload: {
+    //         username: data.username,
+    //         fullname: res.data.user.nama_lengkap,
+    //         role_user: res.data.user.role,
+    //       },
+    //     });
+    dispatch({
+      type: 'LOGIN',
+      token: 'asdasdasdasd',
+    });
+    // dispatch({ type: 'UPDATE_LOADING' });
+    //   })
+    //   .catch((res) => {
+    //     // setMessage(res.response.data.error);
+    //     // setLoginResultError(true);
+    //     // console.log(res.response);
+    //     // console.log(res.response.data.error);
+    //     setModalVisible(false);
+    //     ToastAndroid.show(res.response.data.error, ToastAndroid.SHORT);
+    //   });
+    // setModalVisible(false);
   };
 
   return (

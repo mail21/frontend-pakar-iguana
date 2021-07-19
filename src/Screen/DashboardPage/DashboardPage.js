@@ -5,7 +5,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import NavigationDrawerStructure from './../../components/NavigationDrawerStructure';
 import DashboardComponent from './DashboardComponent';
 import gambar from './../../assets/iguanah.png';
-import DetailComponent from './../DetailPage/DetailComponent';
 
 const DashboardPage = ({ navigation }) => {
   const Stack = createStackNavigator();
@@ -22,32 +21,18 @@ const DashboardPage = ({ navigation }) => {
           ),
           headerStyle: {
             backgroundColor: '#fff', //Set Header color
-            height: 120,
+            height: 150,
+            alignItems: 'center',
             borderBottomWidth: 2,
             borderBottomColor: 'black',
           },
           headerTintColor: 'black',
           headerTitle: () => (
             <View>
-              <Text style={{ fontWeight: 'bold', fontSize: 21 }}>Sistem Pakar Diagnosa</Text>
-              <Text style={{ fontWeight: 'bold', fontSize: 21 }}>Penyakit Hewan Iguana</Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Sistem Pakar Diagnosa</Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Penyakit Hewan Iguana</Text>
             </View>
           ),
-        }}
-      />
-      <Stack.Screen
-        name="Detail Event"
-        component={DetailComponent}
-        options={{
-          title: 'Detail Event', //Set Header Title
-          // headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
-          headerStyle: {
-            backgroundColor: '#fff', //Set Header color
-          },
-          headerTintColor: 'black', //Set Header text color
-          headerTitleStyle: {
-            fontWeight: 'bold', //Set Header text style
-          },
         }}
       />
     </Stack.Navigator>

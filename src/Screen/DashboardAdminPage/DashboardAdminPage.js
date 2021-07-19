@@ -11,15 +11,33 @@ import {
 } from 'react-native';
 import { useContextValue } from './../../context/context';
 import axios from 'axios';
-import search from './../../assets/search.png';
-import clipboard from './../../assets/clipboard.png';
-import help from './../../assets/help.png';
-import about from './../../assets/about.png';
+import gejala from './../../assets/gejala.png';
+import penyakit from './../../assets/penyakit.png';
+import HeaderBar from './../../components/HeaderBar';
 
-const DashboardComponent = ({ navigation }) => {
-  const [{ api }] = useContextValue();
+const DashboardAdminPage = ({ navigation }) => {
+  const [{ api, load }, dispatch] = useContextValue();
+  const [data, setData] = useState([]);
+  const [dataSlide, setDataSlide] = useState([]);
+  const [pageTotal, setPageTotal] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  let req = async () => {};
+  let req = async () => {
+    dispatch({ type: 'UPDATE_LOADING' });
+    await axios
+      .get(`${api}/events-dashboard`, { params: { page: currentPage } })
+      .then((res) => {
+        // console.log(res.data);
+        // console.log(res.data.resultsSlide);
+        setData(res.data.results.data);
+        setDataSlide(res.data.resultsSlide);
+        setPageTotal(res.data.results.last_page);
+        setCurrentPage(res.data.results.current_page);
+        // console.log(res.data.resultsSlide);
+        // setload(!load);
+        dispatch({ type: 'UPDATE_LOADING' });
+      });
+  };
 
   useEffect(() => {
     // console.log(Dimensions.get('window').height);
@@ -28,32 +46,19 @@ const DashboardComponent = ({ navigation }) => {
   }, []);
   return (
     <View style={styles.container}>
-      <View style={{ height: 400, marginTop: 40 }}>
+      <View>
+        <HeaderBar navigation={navigation} />
         <View style={styles.containerViewIcon}>
           <TouchableOpacity onPress={() => navigation.navigate('Daftar Penyakit')}>
-            <Image style={{ width: 120, height: 120 }} source={search} />
+            <Image style={{ width: 120, height: 120 }} source={penyakit} />
             <Text style={{ fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>
               Daftar Penyakit
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Konsultasi')}>
-            <Image style={{ width: 120, height: 120 }} source={clipboard} />
+          <TouchableOpacity onPress={() => navigation.navigate('Daftar Gejala')} style={{}}>
+            <Image style={{ width: 120, height: 120 }} source={gejala} />
             <Text style={{ fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>
-              Konsultasi
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.containerViewIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('Bantuan')}>
-            <Image style={{ width: 120, height: 120 }} source={help} />
-            <Text style={{ fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>
-              Bantuan
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('About')}>
-            <Image style={{ width: 120, height: 120 }} source={about} />
-            <Text style={{ fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>
-              Tentang
+              Daftar Gejala
             </Text>
           </TouchableOpacity>
         </View>
@@ -76,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    // alignItems: 'center',
+    alignItems: 'center',
   },
   loading: {
     flex: 1,
@@ -98,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DashboardComponent;
+export default DashboardAdminPage;

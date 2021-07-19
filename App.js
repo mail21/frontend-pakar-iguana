@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 
 import MainPage from './src/Screen/MainPage/MainPage';
+import MainAdminPage from './src/Screen/MainAdminPage/MainAdminPage';
 import DrawerStartPage from './src/Screen/DrawerStartPage/DrawerStartPage';
 
 import { useContextValue, StateProvider } from './src/context/context';
@@ -37,13 +38,7 @@ function MainApp() {
   return (
     <NavigationContainer>
       {/* {context.isSignout ? ( */}
-      {false ? (
-        // <Stack.Screen name="SignIn" component={SignInScreen} />
-        <DrawerStartPage />
-      ) : (
-        <MainPage />
-        // <Stack.Screen name="Main" component={MainPage} />
-      )}
+      {false ? <DrawerStartPage /> : <>{false ? <MainAdminPage /> : <MainPage />}</>}
     </NavigationContainer>
   );
 }
