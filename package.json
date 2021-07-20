@@ -13,7 +13,7 @@
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
     "axios": "^0.21.1",
-    "expo": "~42.0.1",
+    "expo": "^42.0.1",
     "expo-file-system": "~11.0.2",
     "expo-image-picker": "~10.1.4",
     "expo-media-library": "~12.0.2",
