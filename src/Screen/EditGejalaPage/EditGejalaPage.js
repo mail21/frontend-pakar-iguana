@@ -10,6 +10,7 @@ import {
   Button,
   Picker,
   ToastAndroid,
+  TouchableHighlight,
 } from 'react-native';
 import axios from 'axios';
 import HeaderBar from './../../components/HeaderBar';

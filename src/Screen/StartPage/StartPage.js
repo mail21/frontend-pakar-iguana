@@ -14,64 +14,14 @@ import {
   ImageBackground,
   Dimensions,
 } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
 import gambar from './../../assets/iguanah.png';
-
-import axios from 'axios';
-import { useContextValue } from './../../context/context';
+import background from './../../assets/background.jpg';
 
 const StartPage = ({ navigation }) => {
-  const [{ api }, dispatch] = useContextValue();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [hidePass, sethidePass] = useState(true);
-  const [modalVisible, setModalVisible] = useState(false);
   const dimensions = Dimensions.get('window');
 
-  const signIn = async (data) => {
-    // In a production app, we need to send some data (usually username, password) to server and get a token
-    // We will also need to handle errors if sign in failed
-    // After getting token, we need to persist the token using `SecureStore`
-    // In the example, we'll use a dummy token
-    setModalVisible(!modalVisible);
-    await axios
-      .post(`${api}/login`, data)
-      .then((res) => {
-        // console.log(res.data.token);
-        setModalVisible(!modalVisible);
-        dispatch({
-          type: 'LOGIN_ADD_USER',
-          payload: {
-            username: data.username,
-            fullname: res.data.user.nama_lengkap,
-            role_user: res.data.user.role,
-          },
-        });
-        dispatch({
-          type: 'LOGIN',
-          token: res.data.token,
-        });
-        // dispatch({ type: 'UPDATE_LOADING' });
-      })
-      .catch((res) => {
-        // setMessage(res.response.data.error);
-        // setLoginResultError(true);
-        // console.log(res.response);
-        // console.log(res.response.data.error);
-        setModalVisible(false);
-        ToastAndroid.show(res.response.data.error, ToastAndroid.SHORT);
-      });
-    setModalVisible(false);
-  };
-
   return (
-    <ImageBackground
-      source={{
-        uri: 'https://cutewallpaper.org/21/forest-green-background/Animated-Colors-Green-Backgrounds,-Background-Photos-and-.gif',
-        // uri: 'https://media.istockphoto.com/vectors/green-transparent-leaves-seamless-pattern-background-vector-id1224344942?b=1&k=6&m=1224344942&s=612x612&w=0&h=6DIaLJPzSDu9e-ni5CYvqggiMBmXhvDeh4iLybP-sMI=',
-      }}
-      style={styles.container}
-    >
+    <ImageBackground source={background} style={styles.container}>
       <View
         style={{
           width: dimensions.width,

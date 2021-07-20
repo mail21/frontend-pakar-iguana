@@ -46,7 +46,45 @@ const BantuanPage = ({ navigation }) => {
     <View style={styles.container}>
       <ScrollView>
         <HeaderBar navigation={navigation} />
-        <Text>Bantuan</Text>
+        <View style={{ padding: 15 }}>
+          <View style={styles.containerIsi}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Menu Utama </Text>
+            <Text style={{ textAlign: 'justify' }}>
+              Tampilan menu utama aplikasi. Terdiri dari empat buah sub menu yang dapat dipilih
+              dengan menekan icon sub-menu.
+            </Text>
+          </View>
+          <View style={styles.containerIsi}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Menu Daftar Penyakit </Text>
+            <Text style={{ textAlign: 'justify' }}>
+              Pada menu ini anda dapat melihat daftar penyakit, nama penyakit iguana dan
+              mengetahui gejala dari masing-masing penyakit iguana tersebut. Anda juga dapat
+              mengetahui solusi/penangananya untuk mengatasi penyakit yang di derita iguana
+              kesayangan anda.
+            </Text>
+          </View>
+          <View style={styles.containerIsi}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Menu Konsultasi</Text>
+            <Text style={{ textAlign: 'justify' }}>
+              Pada menu ini anda dapat melakukan konsultasi mengenai masalah penyakit yang di
+              derita iguana kesayangan anda. Ketika anda memilih menu konsultasi maka akan
+              muncul kuisoner/pertanyaan gejala dan anda harus menjawab beberapa pertanyaan
+              dari gejala-gejala yang telah di sediakan, kemudian jawaban-jawaban anda akan di
+              proses untuk hasil diagnosa. Dengan menekan button “YA” atau “TIDAK” untuk
+              menjawab pertanyaan yang diajukan oleh sistem setelah selesai hasil diagnosa akan
+              ditampilkan.
+            </Text>
+          </View>
+          <View style={styles.containerIsi}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Menu About</Text>
+            <Text style={{ textAlign: 'justify' }}>
+              Pada menu ini anda dapat melihat info tentang aplikasi pakar iguana. Anda juga
+              dapat melakukan aksi untuk mengirim kritik dan saran maupun pertanyaan melalui
+              tiga media sosial yang tersedia pada menu tersebut antara lain Email, whatsApp
+              dan Instagram admin/ si pembuat aplikasi ini.
+            </Text>
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -59,6 +97,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // justifyContent: 'center',
     // padding: '15px',
+  },
+  containerIsi: {
+    marginVertical: 10,
   },
 });
 

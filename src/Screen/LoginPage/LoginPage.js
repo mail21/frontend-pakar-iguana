@@ -18,6 +18,7 @@ import { Entypo } from '@expo/vector-icons';
 import axios from 'axios';
 import { useContextValue } from './../../context/context';
 import { Ionicons } from '@expo/vector-icons';
+import background from './../../assets/background.jpg';
 
 const LoginPage = ({ navigation }) => {
   const [{ api }, dispatch] = useContextValue();
@@ -28,50 +29,27 @@ const LoginPage = ({ navigation }) => {
   const dimensions = Dimensions.get('window');
 
   const signIn = async (data) => {
-    // In a production app, we need to send some data (usually username, password) to server and get a token
-    // We will also need to handle errors if sign in failed
-    // After getting token, we need to persist the token using `SecureStore`
-    // In the example, we'll use a dummy token
-    setModalVisible(!modalVisible);
-    await axios
-      .post(`${api}/login`, data)
-      .then((res) => {
-        // console.log(res.data.token);
-        setModalVisible(!modalVisible);
-        dispatch({
-          type: 'LOGIN_ADD_USER',
-          payload: {
-            username: data.username,
-            fullname: res.data.user.nama_lengkap,
-            role_user: res.data.user.role,
-          },
-        });
-        dispatch({
-          type: 'LOGIN',
-          token: res.data.token,
-        });
+    if (data.username == '' || data.password == '') {
+      ToastAndroid.show('Mohon Untuk Mengisi Username/Password', ToastAndroid.SHORT);
+    } else {
+      setModalVisible(!modalVisible);
+      await axios.post(`${api}/login_user`, data).then((res) => {
+        if (res.data.status) {
+          setModalVisible(false);
+          dispatch({ type: 'LOGIN', payload: 'user' });
+        } else {
+          setModalVisible(false);
+          ToastAndroid.show(res.data.pesan, ToastAndroid.SHORT);
+        }
         // dispatch({ type: 'UPDATE_LOADING' });
-      })
-      .catch((res) => {
-        // setMessage(res.response.data.error);
-        // setLoginResultError(true);
-        // console.log(res.response);
-        // console.log(res.response.data.error);
-        setModalVisible(false);
-        ToastAndroid.show(res.response.data.error, ToastAndroid.SHORT);
       });
-    setModalVisible(false);
+      setModalVisible(false);
+    }
   };
 
   return (
-    <ImageBackground
-      source={{
-        uri: 'https://cutewallpaper.org/21/forest-green-background/Animated-Colors-Green-Backgrounds,-Background-Photos-and-.gif',
-        // uri: 'https://media.istockphoto.com/vectors/green-transparent-leaves-seamless-pattern-background-vector-id1224344942?b=1&k=6&m=1224344942&s=612x612&w=0&h=6DIaLJPzSDu9e-ni5CYvqggiMBmXhvDeh4iLybP-sMI=',
-      }}
-      style={styles.container}
-    >
-      <KeyboardAvoidingView style={styles.container2}>
+    <ImageBackground source={background} style={styles.container}>
+      <View style={styles.container2}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={{ alignSelf: 'flex-start', marginLeft: 30, marginTop: 25 }}
@@ -89,20 +67,13 @@ const LoginPage = ({ navigation }) => {
             autoCapitalize="none"
           />
         </View>
-        {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <ActivityIndicator size="large" color="#000000" />
+        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <ActivityIndicator size="large" color="#000000" />
+            </View>
           </View>
-        </View>
-      </Modal> */}
+        </Modal>
         <View style={styles.inputView}>
           <TextInput
             secureTextEntry
@@ -125,7 +96,7 @@ const LoginPage = ({ navigation }) => {
         >
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
-      </KeyboardAvoidingView>
+      </View>
     </ImageBackground>
   );
 };
@@ -164,6 +135,7 @@ const styles = StyleSheet.create({
     padding: 20,
     // flexDirection: 'row',
     position: 'relative',
+    marginBottom: 10,
   },
   inputText: {
     height: 50,

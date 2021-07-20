@@ -37,8 +37,11 @@ function MainApp() {
   }, []);
   return (
     <NavigationContainer>
-      {/* {context.isSignout ? ( */}
-      {false ? <DrawerStartPage /> : <>{false ? <MainAdminPage /> : <MainPage />}</>}
+      {context.isSignout ? (
+        <DrawerStartPage />
+      ) : (
+        <>{context.peran === 'admin' ? <MainAdminPage /> : <MainPage />}</>
+      )}
     </NavigationContainer>
   );
 }

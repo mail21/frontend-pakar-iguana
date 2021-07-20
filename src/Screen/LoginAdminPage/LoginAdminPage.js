@@ -17,6 +17,7 @@ import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 import { useContextValue } from './../../context/context';
+import background from './../../assets/background.jpg';
 
 const LoginAdminPage = ({ navigation }) => {
   const [{ api }, dispatch] = useContextValue();
@@ -27,45 +28,26 @@ const LoginAdminPage = ({ navigation }) => {
   const dimensions = Dimensions.get('window');
 
   const signIn = async (data) => {
-    // setModalVisible(!modalVisible);
-    // await axios
-    //   .post(`${api}/login`, data)
-    //   .then((res) => {
-    //     // console.log(res.data.token);
-    //     setModalVisible(!modalVisible);
-    //     dispatch({
-    //       type: 'LOGIN_ADD_USER',
-    //       payload: {
-    //         username: data.username,
-    //         fullname: res.data.user.nama_lengkap,
-    //         role_user: res.data.user.role,
-    //       },
-    //     });
-    dispatch({
-      type: 'LOGIN',
-      token: 'asdasdasdasd',
-    });
-    // dispatch({ type: 'UPDATE_LOADING' });
-    //   })
-    //   .catch((res) => {
-    //     // setMessage(res.response.data.error);
-    //     // setLoginResultError(true);
-    //     // console.log(res.response);
-    //     // console.log(res.response.data.error);
-    //     setModalVisible(false);
-    //     ToastAndroid.show(res.response.data.error, ToastAndroid.SHORT);
-    //   });
-    // setModalVisible(false);
+    if (data.username == '' || data.password == '') {
+      ToastAndroid.show('Mohon Untuk Mengisi Username/Password', ToastAndroid.SHORT);
+    } else {
+      setModalVisible(!modalVisible);
+      await axios.post(`${api}/login_admin`, data).then((res) => {
+        if (res.data.status) {
+          setModalVisible(false);
+          dispatch({ type: 'LOGIN', payload: 'admin' });
+        } else {
+          setModalVisible(false);
+          ToastAndroid.show(res.data.pesan, ToastAndroid.SHORT);
+        }
+        // dispatch({ type: 'UPDATE_LOADING' });
+      });
+      setModalVisible(false);
+    }
   };
 
   return (
-    <ImageBackground
-      source={{
-        uri: 'https://cutewallpaper.org/21/forest-green-background/Animated-Colors-Green-Backgrounds,-Background-Photos-and-.gif',
-        // uri: 'https://media.istockphoto.com/vectors/green-transparent-leaves-seamless-pattern-background-vector-id1224344942?b=1&k=6&m=1224344942&s=612x612&w=0&h=6DIaLJPzSDu9e-ni5CYvqggiMBmXhvDeh4iLybP-sMI=',
-      }}
-      style={styles.container}
-    >
+    <ImageBackground source={background} style={styles.container}>
       <KeyboardAvoidingView style={styles.container2}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -84,20 +66,20 @@ const LoginAdminPage = ({ navigation }) => {
             autoCapitalize="none"
           />
         </View>
-        {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <ActivityIndicator size="large" color="#000000" />
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <ActivityIndicator size="large" color="#000000" />
+            </View>
           </View>
-        </View>
-      </Modal> */}
+        </Modal>
         <View style={styles.inputView}>
           <TextInput
             secureTextEntry
@@ -159,6 +141,7 @@ const styles = StyleSheet.create({
     padding: 20,
     // flexDirection: 'row',
     position: 'relative',
+    marginBottom: 10,
   },
   inputText: {
     height: 50,

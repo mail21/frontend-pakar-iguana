@@ -19,12 +19,13 @@ import { Entypo, Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import gambar from './../../assets/iguanah.png';
 import { useContextValue } from './../../context/context';
+import { useIsFocused } from '@react-navigation/native';
 
-const DaftarPenyakitAdminPage = ({ navigation }) => {
-  const Stack = createStackNavigator();
+const DaftarPenyakitAdminComponent = ({ navigation }) => {
   const [{ api }] = useContextValue();
   const [penyakit, setpenyakit] = useState([]);
   const [load, setLoad] = useState(false);
+  const isFocused = useIsFocused();
 
   let req = async () => {
     setLoad(true);
@@ -41,40 +42,67 @@ const DaftarPenyakitAdminPage = ({ navigation }) => {
 
   useEffect(() => {
     req();
-  }, []);
+  }, [isFocused]);
+
+  return (
+    <>
+      {load ? (
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" color="white" />
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <ScrollView>
+            {penyakit.map((el, i) => (
+              <CardAdminPenyakit
+                key={i}
+                navigation={navigation}
+                nama={el.nama}
+                id={el.id_penyakit}
+              />
+            ))}
+          </ScrollView>
+          <TouchableOpacity
+            style={styles.buttonAdd}
+            onPress={() => navigation.navigate('Tambah Penyakit')}
+          >
+            <Entypo name="plus" size={50} color="black" />
+          </TouchableOpacity>
+        </View>
+      )}
+    </>
+  );
+};
+
+const DaftarPenyakitAdminPage = ({ navigation }) => {
+  const Stack = createStackNavigator();
+  const [{ api }] = useContextValue();
+  const [penyakit, setpenyakit] = useState([]);
+  const [load, setLoad] = useState(false);
+  const isFocused = useIsFocused();
+
+  let req = async () => {
+    setLoad(true);
+    await axios
+      .get(`${api}/get_penyakit`)
+      .then((res) => {
+        setpenyakit(res.data.results);
+        setLoad(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    req();
+  }, [isFocused]);
 
   return (
     <Stack.Navigator initialRouteName="Daftar Penyakit">
       <Stack.Screen
         name="Daftar Penyakit"
-        component={() => (
-          <>
-            {load ? (
-              <View style={styles.loading}>
-                <ActivityIndicator size="large" color="white" />
-              </View>
-            ) : (
-              <View style={styles.container}>
-                <ScrollView>
-                  {penyakit.map((el, i) => (
-                    <CardAdminPenyakit
-                      key={i}
-                      navigation={navigation}
-                      nama={el.nama}
-                      id={el.id_penyakit}
-                    />
-                  ))}
-                </ScrollView>
-                <TouchableOpacity
-                  style={styles.buttonAdd}
-                  onPress={() => navigation.navigate('Tambah Penyakit')}
-                >
-                  <Entypo name="plus" size={50} color="black" />
-                </TouchableOpacity>
-              </View>
-            )}
-          </>
-        )}
+        component={DaftarPenyakitAdminComponent}
         options={{
           headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
           headerRight: () => (

@@ -17,59 +17,42 @@ import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 import { useContextValue } from './../../context/context';
+import background from './../../assets/background.jpg';
 
 const DaftarUserPage = ({ navigation }) => {
   const [{ api }, dispatch] = useContextValue();
+  const [nama, setNama] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [hidePass, sethidePass] = useState(true);
+  const [hidePass2, sethidePass2] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const dimensions = Dimensions.get('window');
 
   const signIn = async (data) => {
-    // In a production app, we need to send some data (usually username, password) to server and get a token
-    // We will also need to handle errors if sign in failed
-    // After getting token, we need to persist the token using `SecureStore`
-    // In the example, we'll use a dummy token
-    setModalVisible(!modalVisible);
-    await axios
-      .post(`${api}/login`, data)
-      .then((res) => {
-        // console.log(res.data.token);
-        setModalVisible(!modalVisible);
-        dispatch({
-          type: 'LOGIN_ADD_USER',
-          payload: {
-            username: data.username,
-            fullname: res.data.user.nama_lengkap,
-            role_user: res.data.user.role,
-          },
-        });
-        dispatch({
-          type: 'LOGIN',
-          token: res.data.token,
-        });
+    if (data.username == '' || data.password == '' || data.nama == '') {
+      ToastAndroid.show('Mohon Untuk Mengisi Data Dengan Lengkap', ToastAndroid.SHORT);
+    } else if (data.password != data.password2) {
+      ToastAndroid.show('Password Tidak Sama', ToastAndroid.SHORT);
+    } else {
+      setModalVisible(!modalVisible);
+      await axios.post(`${api}/registrasi`, data).then((res) => {
+        if (res.data.status) {
+          setModalVisible(false);
+          dispatch({ type: 'LOGIN', payload: 'user' });
+        } else {
+          setModalVisible(false);
+          ToastAndroid.show(res.data.pesan, ToastAndroid.SHORT);
+        }
         // dispatch({ type: 'UPDATE_LOADING' });
-      })
-      .catch((res) => {
-        // setMessage(res.response.data.error);
-        // setLoginResultError(true);
-        // console.log(res.response);
-        // console.log(res.response.data.error);
-        setModalVisible(false);
-        ToastAndroid.show(res.response.data.error, ToastAndroid.SHORT);
       });
-    setModalVisible(false);
+      setModalVisible(false);
+    }
   };
 
   return (
-    <ImageBackground
-      source={{
-        uri: 'https://cutewallpaper.org/21/forest-green-background/Animated-Colors-Green-Backgrounds,-Background-Photos-and-.gif',
-        // uri: 'https://media.istockphoto.com/vectors/green-transparent-leaves-seamless-pattern-background-vector-id1224344942?b=1&k=6&m=1224344942&s=612x612&w=0&h=6DIaLJPzSDu9e-ni5CYvqggiMBmXhvDeh4iLybP-sMI=',
-      }}
-      style={styles.container}
-    >
+    <ImageBackground source={background} style={styles.container}>
       <KeyboardAvoidingView style={styles.container2}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -88,27 +71,20 @@ const DaftarUserPage = ({ navigation }) => {
             autoCapitalize="none"
           />
         </View>
-        {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <ActivityIndicator size="large" color="#000000" />
+        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <ActivityIndicator size="large" color="#000000" />
+            </View>
           </View>
-        </View>
-      </Modal> */}
+        </Modal>
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
             placeholder="Nama"
             placeholderTextColor="#003f5c"
             placeholderTextColor="#fff"
-            onChangeText={setUsername}
+            onChangeText={setNama}
             autoCapitalize="none"
           />
         </View>
@@ -134,19 +110,19 @@ const DaftarUserPage = ({ navigation }) => {
             style={styles.inputText}
             placeholder="Konfirmasi Password..."
             placeholderTextColor="#fff"
-            onChangeText={setPassword}
-            secureTextEntry={hidePass}
+            onChangeText={setPassword2}
+            secureTextEntry={hidePass2}
           />
           <TouchableOpacity
-            onPress={() => sethidePass(!hidePass)}
+            onPress={() => sethidePass2(!hidePass2)}
             style={styles.hidePassStyle}
           >
-            <Entypo name={hidePass ? 'eye-with-line' : 'eye'} size={17} color="black" />
+            <Entypo name={hidePass2 ? 'eye-with-line' : 'eye'} size={17} color="black" />
           </TouchableOpacity>
         </View>
         <TouchableOpacity
           style={styles.loginBtn}
-          onPress={() => signIn({ username, password })}
+          onPress={() => signIn({ username, password, password2, nama })}
         >
           <Text style={styles.loginText}>Daftar</Text>
         </TouchableOpacity>

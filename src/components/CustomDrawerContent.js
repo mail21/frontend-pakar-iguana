@@ -32,16 +32,16 @@ const CustomDrawerContent = (props) => {
           activeTintColor="#9BDEAC"
           inactiveTintColor="black"
         />
-        <DrawerItem
+        {/* <DrawerItem
           focused={props.state.index === 1 ? true : false}
           icon={() => <AntDesign name="search1" size={24} color="black" />}
           label="Daftar Penyakit"
           onPress={() => props.navigation.navigate('Daftar Penyakit')}
           activeTintColor="#9BDEAC"
           inactiveTintColor="black"
-        />
+        /> */}
         <DrawerItem
-          focused={props.state.index === 2 ? true : false}
+          focused={props.state.index === 1 ? true : false}
           icon={() => <Entypo name="light-bulb" size={24} color="black" />}
           label="About"
           onPress={() => props.navigation.navigate('About')}
@@ -49,7 +49,7 @@ const CustomDrawerContent = (props) => {
           inactiveTintColor="black"
         />
         <DrawerItem
-          focused={props.state.index === 3 ? true : false}
+          focused={props.state.index === 2 ? true : false}
           icon={() => <Entypo name="help-with-circle" size={24} color="black" />}
           label="Bantuan"
           onPress={() => props.navigation.navigate('Bantuan')}

@@ -19,9 +19,10 @@ import { Entypo, Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import gambar from './../../assets/iguanah.png';
 import { useContextValue } from '../../context/context';
+import { useIsFocused } from '@react-navigation/native';
 
-const DaftarGejalaAdminPage = ({ navigation }) => {
-  const Stack = createStackNavigator();
+const DaftarGejalaComponent = ({ navigation }) => {
+  const isFocused = useIsFocused();
   const [{ api }] = useContextValue();
   const [penyakit, setpenyakit] = useState([]);
 
@@ -35,34 +36,54 @@ const DaftarGejalaAdminPage = ({ navigation }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [isFocused]);
+
+  return (
+    <View style={styles.container}>
+      <ScrollView>
+        {penyakit.map((el, i) => (
+          <CardFullGejala
+            key={i}
+            navigation={navigation}
+            nama={el.nama}
+            gejala={el.desc_gejala}
+            id_penyakit={el.id_penyakit}
+            id_gejala={el.id_gejala}
+          />
+        ))}
+      </ScrollView>
+      <TouchableOpacity
+        style={styles.buttonAdd}
+        onPress={() => navigation.navigate('Tambah Gejala')}
+      >
+        <Entypo name="plus" size={50} color="black" />
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const DaftarGejalaAdminPage = ({ navigation }) => {
+  const Stack = createStackNavigator();
+  const [{ api }] = useContextValue();
+  const [penyakit, setpenyakit] = useState([]);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    axios
+      .get(`${api}/get_gejala_join`)
+      .then((res) => {
+        setpenyakit(res.data.results);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [isFocused]);
 
   return (
     <Stack.Navigator initialRouteName="Daftar Gejala">
       <Stack.Screen
         name="Daftar Gejala"
-        component={() => (
-          <View style={styles.container}>
-            <ScrollView>
-              {penyakit.map((el, i) => (
-                <CardFullGejala
-                  key={i}
-                  navigation={navigation}
-                  nama={el.nama}
-                  gejala={el.desc_gejala}
-                  id_penyakit={el.id_penyakit}
-                  id_gejala={el.id_gejala}
-                />
-              ))}
-            </ScrollView>
-            <TouchableOpacity
-              style={styles.buttonAdd}
-              onPress={() => navigation.navigate('Tambah Gejala')}
-            >
-              <Entypo name="plus" size={50} color="black" />
-            </TouchableOpacity>
-          </View>
-        )}
+        component={DaftarGejalaComponent}
         options={{
           headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
           headerRight: () => (

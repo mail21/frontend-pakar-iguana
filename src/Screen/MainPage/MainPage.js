@@ -16,10 +16,10 @@ function MainPage() {
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
         <Drawer.Screen name="Home" component={DashboardPage} />
-        <Drawer.Screen name="Daftar Penyakit" component={DaftarPenyakitPage} />
-        <Drawer.Screen name="Konsultasi" component={KonsultasiPage} />
         <Drawer.Screen name="About" component={AboutPage} />
         <Drawer.Screen name="Bantuan" component={BantuanPage} />
+        <Drawer.Screen name="Daftar Penyakit" component={DaftarPenyakitPage} />
+        <Drawer.Screen name="Konsultasi" component={KonsultasiPage} />
       </Drawer.Navigator>
     </>
   );

@@ -18,12 +18,14 @@ import { Entypo, Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import gambar from './../../assets/iguanah.png';
 import { useContextValue } from '../../context/context';
+import { useIsFocused } from '@react-navigation/native';
 
 const DaftarPenyakitAdminPage = ({ navigation }) => {
   const Stack = createStackNavigator();
   const [{ api }] = useContextValue();
   const [penyakit, setpenyakit] = useState([]);
   const [load, setLoad] = useState(false);
+  const isFocused = useIsFocused();
 
   let req = async () => {
     setLoad(true);
@@ -40,7 +42,7 @@ const DaftarPenyakitAdminPage = ({ navigation }) => {
 
   useEffect(() => {
     req();
-  }, []);
+  }, [isFocused]);
 
   return (
     <Stack.Navigator initialRouteName="DaftarPenyakit">
