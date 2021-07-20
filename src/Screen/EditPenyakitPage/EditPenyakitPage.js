@@ -37,6 +37,7 @@ const EditPenyakitPage = ({ navigation, route }) => {
         setDeskripsi(res.data.results.desc_penyakit);
         setSaran(res.data.results.desc_pengobatan);
         setFoto(res.data.results.gambar);
+        console.log('getGambar', res.data.results.gambar);
         setLoad(false);
       })
       .catch((error) => console.log(error));
@@ -49,13 +50,14 @@ const EditPenyakitPage = ({ navigation, route }) => {
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
+      base64: true,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-    setFoto(result.uri);
+    setFoto(`data:image/png;base64,${result.base64}`);
     setPerubahan(true);
-    console.log(result);
+    // console.log('the rsult', result);
   };
 
   const submit = async () => {

@@ -43,7 +43,7 @@ const CustomDrawerContent = (props) => {
         <DrawerItem
           focused={props.state.index === 1 ? true : false}
           icon={() => <Entypo name="light-bulb" size={24} color="black" />}
-          label="About"
+          label="Tentang"
           onPress={() => props.navigation.navigate('About')}
           activeTintColor="#9BDEAC"
           inactiveTintColor="black"

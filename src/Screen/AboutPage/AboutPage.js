@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
+  Linking,
 } from 'react-native';
 import { useContextValue } from './../../context/context';
 import axios from 'axios';
@@ -26,8 +27,8 @@ const AboutPage = ({ navigation }) => {
   }, []);
   return (
     <View style={styles.container}>
+      <HeaderBar navigation={navigation} />
       <ScrollView>
-        <HeaderBar navigation={navigation} />
         <View style={{ alignItems: 'center', padding: 20 }}>
           <Text style={{ fontWeight: 'bold', textAlign: 'center' }}>
             Aplikasi Sistem Pakar Diagnosa Penyakit Hewan Iguana
@@ -63,9 +64,25 @@ const AboutPage = ({ navigation }) => {
           </View>
 
           <View style={{ alignSelf: 'flex-start', marginTop: 20 }}>
-            <Text>Email : fajrimardani9@gmail.com </Text>
-            <Text>WA :081383160518</Text>
-            <Text>Instagram : fajri_mrdn</Text>
+            <Text
+              style={{ marginVertical: 15, color: 'blue', textDecorationLine: 'underline' }}
+              onPress={() => Linking.openURL('mailto: fajrimardani9@gmail.com')}
+            >
+              Email : fajrimardani9@gmail.com
+            </Text>
+
+            <Text
+              style={{ marginVertical: 15, color: 'blue', textDecorationLine: 'underline' }}
+              onPress={() => Linking.openURL('https://wa.me/6281383160518')}
+            >
+              WA :081383160518
+            </Text>
+            <Text
+              style={{ marginVertical: 15, color: 'blue', textDecorationLine: 'underline' }}
+              onPress={() => Linking.openURL('https://www.instagram.com/fajri_mrdn/')}
+            >
+              Instagram : fajri_mrdn
+            </Text>
           </View>
         </View>
       </ScrollView>

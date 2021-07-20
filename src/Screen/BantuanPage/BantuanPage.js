@@ -12,6 +12,10 @@ import {
 import { useContextValue } from './../../context/context';
 import axios from 'axios';
 import HeaderBar from './../../components/HeaderBar';
+import sshome from './../../assets/sshome.png';
+import sstentang from './../../assets/sstentang.png';
+import ssdaftarpenyakit from './../../assets/ssdaftarpenyakit.png';
+import sskuesioner from './../../assets/sskuesioner.png';
 
 const BantuanPage = ({ navigation }) => {
   const [{ api, load }, dispatch] = useContextValue();
@@ -44,11 +48,22 @@ const BantuanPage = ({ navigation }) => {
   }, []);
   return (
     <View style={styles.container}>
+      <HeaderBar navigation={navigation} />
       <ScrollView>
-        <HeaderBar navigation={navigation} />
         <View style={{ padding: 15 }}>
           <View style={styles.containerIsi}>
             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Menu Utama </Text>
+            <Image
+              style={{
+                width: 150,
+                height: 250,
+                marginVertical: 20,
+                borderColor: 'black',
+                borderWidth: 2,
+              }}
+              source={sshome}
+              resizeMode="contain"
+            />
             <Text style={{ textAlign: 'justify' }}>
               Tampilan menu utama aplikasi. Terdiri dari empat buah sub menu yang dapat dipilih
               dengan menekan icon sub-menu.
@@ -56,6 +71,18 @@ const BantuanPage = ({ navigation }) => {
           </View>
           <View style={styles.containerIsi}>
             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Menu Daftar Penyakit </Text>
+            <Image
+              style={{
+                width: 150,
+                height: 250,
+                marginVertical: 20,
+                borderColor: 'black',
+                borderWidth: 2,
+              }}
+              source={ssdaftarpenyakit}
+              resizeMode="contain"
+            />
+
             <Text style={{ textAlign: 'justify' }}>
               Pada menu ini anda dapat melihat daftar penyakit, nama penyakit iguana dan
               mengetahui gejala dari masing-masing penyakit iguana tersebut. Anda juga dapat
@@ -65,6 +92,17 @@ const BantuanPage = ({ navigation }) => {
           </View>
           <View style={styles.containerIsi}>
             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Menu Konsultasi</Text>
+            <Image
+              style={{
+                width: 150,
+                height: 250,
+                marginVertical: 20,
+                borderColor: 'black',
+                borderWidth: 2,
+              }}
+              source={sskuesioner}
+              resizeMode="contain"
+            />
             <Text style={{ textAlign: 'justify' }}>
               Pada menu ini anda dapat melakukan konsultasi mengenai masalah penyakit yang di
               derita iguana kesayangan anda. Ketika anda memilih menu konsultasi maka akan
@@ -76,7 +114,18 @@ const BantuanPage = ({ navigation }) => {
             </Text>
           </View>
           <View style={styles.containerIsi}>
-            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Menu About</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Menu Tentang</Text>
+            <Image
+              style={{
+                width: 150,
+                height: 250,
+                marginVertical: 20,
+                borderColor: 'black',
+                borderWidth: 2,
+              }}
+              source={sstentang}
+              resizeMode="contain"
+            />
             <Text style={{ textAlign: 'justify' }}>
               Pada menu ini anda dapat melihat info tentang aplikasi pakar iguana. Anda juga
               dapat melakukan aksi untuk mengirim kritik dan saran maupun pertanyaan melalui

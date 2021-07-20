@@ -55,8 +55,8 @@ const DaftarUserPage = ({ navigation }) => {
     <ImageBackground source={background} style={styles.container}>
       <KeyboardAvoidingView style={styles.container2}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{ alignSelf: 'flex-start', marginLeft: 30, marginTop: 25 }}
+          onPress={() => navigation.navigate('Start')}
+          style={{ alignSelf: 'flex-start', marginLeft: 30, marginTop: 40 }}
         >
           <Ionicons name="arrow-back-sharp" size={30} color="white" />
         </TouchableOpacity>

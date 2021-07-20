@@ -32,11 +32,13 @@ export default function CardAdminPenyakit({
 
   return (
     <View style={styles.card}>
-      <View>
-        <Text style={{ fontSize: 17 }}>Penyakit : {nama}</Text>
+      <View style={{ flex: 3 }}>
+        <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 10 }}>
+          Penyakit : {nama}
+        </Text>
         <Text>{gejala}</Text>
       </View>
-      <View style={{}}>
+      <View style={{ flex: 1, alignItems: 'center' }}>
         <Modal
           animationType="slide"
           transparent={true}
@@ -98,9 +100,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'white',
     borderRadius: 10,
-    width: Dimensions.get('window').width - 50,
+    width: Dimensions.get('window').width - 20,
     paddingHorizontal: 20,
-    paddingVertical: 5,
+    paddingVertical: 15,
     marginVertical: 15,
     justifyContent: 'space-between',
     alignItems: 'center',

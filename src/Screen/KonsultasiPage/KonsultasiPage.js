@@ -56,7 +56,7 @@ const KonsultasiPage = ({ navigation }) => {
     setIterations(0);
     setIteration(1);
     axios
-      .get(`${api}/get_penyakit`)
+      .get(`${api}/get_penyakit_aktif`)
       .then((res) => {
         setTotalPenyakit(res.data.results.length);
         setLoad(false);
@@ -68,7 +68,9 @@ const KonsultasiPage = ({ navigation }) => {
   }, [isFocused]);
 
   const handleLanjut = () => {
-    setLengthGejala(kuesioner.filter((item) => item.id_penyakit == iteration).length);
+    setLengthGejala(
+      kuesioner.filter((item) => item.id_penyakit == kuesioner[0].id_penyakit).length
+    );
     if (check == 'iya') {
       if (iterations + 1 == lengthGejala) {
         setPenyakit(kuesioner[iterations]);
@@ -78,6 +80,8 @@ const KonsultasiPage = ({ navigation }) => {
         setCheck('');
       }
     } else if (check == 'tidak') {
+      console.log(totalPenyakit);
+      console.log(iteration);
       if (iteration >= totalPenyakit) {
         Alert.alert(
           'Hasil Diagnosa',
@@ -87,7 +91,9 @@ const KonsultasiPage = ({ navigation }) => {
         );
       }
       setIterations(0);
-      setKuesioner((prev) => prev.filter((item) => item.id_penyakit != iteration));
+      setKuesioner((prev) =>
+        prev.filter((item) => item.id_penyakit != kuesioner[0].id_penyakit)
+      );
       setIteration((prev) => prev + 1);
       setCheck('');
     } else {

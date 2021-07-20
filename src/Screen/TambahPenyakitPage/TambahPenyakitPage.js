@@ -28,10 +28,11 @@ const TambahPenyakitPage = ({ navigation }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
+      base64: true,
       quality: 1,
     });
-    setFoto(result.uri);
-    console.log(result);
+    setFoto(`data:image/png;base64,${result.base64}`);
+    // console.log(result);
   };
 
   const submit = async () => {

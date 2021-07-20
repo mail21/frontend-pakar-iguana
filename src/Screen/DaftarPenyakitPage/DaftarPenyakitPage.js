@@ -132,9 +132,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 55,
     right: 30,
-    backgroundColor: 'white',
+    backgroundColor: '#59A96A',
     padding: 10,
-    borderRadius: 25,
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: 'black',
   },
   loading: {
     flex: 1,

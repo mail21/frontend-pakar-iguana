@@ -51,13 +51,22 @@ const DetailPenyakitPage = ({ navigation, route }) => {
               />
               <View style={{ alignItems: 'center', marginVertical: 40 }}>
                 <Text style={{ fontWeight: 'bold' }}>Deskripsi</Text>
-                <Text>{dataPenyakit.desc_penyakit}</Text>
+                <Text style={{ padding: 20, textAlign: 'justify' }}>
+                  {dataPenyakit.desc_penyakit}
+                </Text>
               </View>
 
               <View style={{ alignItems: 'center', marginBottom: 40 }}>
                 <Text style={{ fontWeight: 'bold' }}>Gejala</Text>
                 {dataGejala.map((el) => (
-                  <Text key={el.id_gejala} style={{ marginVertical: 4 }}>
+                  <Text
+                    key={el.id_gejala}
+                    style={{
+                      paddingHorizontal: 20,
+                      paddingVertical: 10,
+                      textAlign: 'justify',
+                    }}
+                  >
                     {el.desc_gejala}
                   </Text>
                 ))}
@@ -65,7 +74,9 @@ const DetailPenyakitPage = ({ navigation, route }) => {
 
               <View style={{ alignItems: 'center', marginBottom: 40 }}>
                 <Text style={{ fontWeight: 'bold' }}>Saran Pengobatan</Text>
-                <Text>{dataPenyakit.desc_pengobatan}</Text>
+                <Text style={{ padding: 20, textAlign: 'justify' }}>
+                  {dataPenyakit.desc_pengobatan}
+                </Text>
               </View>
             </View>
           </ScrollView>
@@ -81,7 +92,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#9BDEAC',
     alignItems: 'center',
     // justifyContent: 'center',
-    // padding: '15px',
   },
   loading: {
     flex: 1,

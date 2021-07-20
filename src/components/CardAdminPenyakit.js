@@ -26,10 +26,10 @@ export default function CardAdminPenyakit({ navigation, nama, id }) {
 
   return (
     <View style={styles.card}>
-      <View>
-        <Text style={{ fontSize: 19 }}>{nama}</Text>
+      <View style={{ flex: 2 }}>
+        <Text style={{ fontSize: 17, textAlign: 'justify' }}>{nama}</Text>
       </View>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -87,16 +87,14 @@ export default function CardAdminPenyakit({ navigation, nama, id }) {
 const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
-    // backgroundColor: 'red',
     width: Dimensions.get('window').width,
     borderBottomColor: 'black',
     borderBottomWidth: 1,
     paddingHorizontal: 20,
-    paddingVertical: 5,
+    paddingVertical: 15,
     marginVertical: 5,
     justifyContent: 'space-between',
     alignItems: 'center',
-    fontSize: 18,
   },
   button: {
     backgroundColor: 'white',
