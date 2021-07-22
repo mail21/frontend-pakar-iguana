@@ -16,9 +16,14 @@ import {
 } from 'react-native';
 import gambar from './../../assets/iguanah.png';
 import background from './../../assets/background.jpg';
+import { useIsDrawerOpen } from '@react-navigation/drawer';
 
 const StartPage = ({ navigation }) => {
   const dimensions = Dimensions.get('window');
+  const isDrawerOpen = useIsDrawerOpen();
+  React.useEffect(() => {
+    navigation.closeDrawer();
+  }, [isDrawerOpen]);
 
   return (
     <ImageBackground source={background} style={styles.container}>

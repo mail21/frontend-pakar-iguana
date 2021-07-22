@@ -13,7 +13,9 @@ import { useContextValue } from './../../context/context';
 import axios from 'axios';
 import gejala from './../../assets/gejala.png';
 import penyakit from './../../assets/penyakit.png';
-import HeaderBar from './../../components/HeaderBar';
+import { createStackNavigator } from '@react-navigation/stack';
+import NavigationDrawerStructure from '../../components/NavigationDrawerStructure';
+import gambar from './../../assets/iguanah.png';
 
 const DashboardAdminPage = ({ navigation }) => {
   const [{ api, load }, dispatch] = useContextValue();
@@ -21,6 +23,7 @@ const DashboardAdminPage = ({ navigation }) => {
   const [dataSlide, setDataSlide] = useState([]);
   const [pageTotal, setPageTotal] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const Stack = createStackNavigator();
 
   let req = async () => {
     dispatch({ type: 'UPDATE_LOADING' });
@@ -45,25 +48,54 @@ const DashboardAdminPage = ({ navigation }) => {
     // req();
   }, []);
   return (
-    <View style={styles.container}>
-      <View>
-        <HeaderBar navigation={navigation} />
-        <View style={styles.containerViewIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate('Daftar Penyakit')}>
-            <Image style={{ width: 120, height: 120 }} source={penyakit} />
-            <Text style={{ fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>
-              Daftar Penyakit
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Daftar Gejala')} style={{}}>
-            <Image style={{ width: 120, height: 120 }} source={gejala} />
-            <Text style={{ fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>
-              Daftar Gejala
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+    <Stack.Navigator initialRouteName="About">
+      <Stack.Screen
+        name="About"
+        component={() => (
+          <View style={styles.container}>
+            <View>
+              <View style={styles.containerViewIcon}>
+                <TouchableOpacity onPress={() => navigation.navigate('Daftar Penyakit')}>
+                  <Image style={{ width: 120, height: 120 }} source={penyakit} />
+                  <Text style={{ fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>
+                    Daftar Penyakit
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Daftar Gejala')}
+                  style={{}}
+                >
+                  <Image style={{ width: 120, height: 120 }} source={gejala} />
+                  <Text style={{ fontSize: 17, fontWeight: 'bold', textAlign: 'center' }}>
+                    Daftar Gejala
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        )}
+        options={{
+          headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
+          headerRight: () => (
+            <Image style={{ width: 80, height: 80, marginRight: 20 }} source={gambar} />
+          ),
+          headerStyle: {
+            backgroundColor: '#fff', //Set Header color
+            height: 150,
+            alignItems: 'center',
+            borderBottomWidth: 2,
+            borderBottomColor: 'black',
+          },
+          headerTintColor: 'black',
+          headerTitle: () => (
+            <View>
+              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Sistem Pakar Diagnosa</Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Penyakit Hewan Iguana</Text>
+            </View>
+          ),
+        }}
+      />
+    </Stack.Navigator>
   );
 };
 

@@ -59,7 +59,10 @@ const CustomDrawerContent = (props) => {
         <DrawerItem
           icon={() => <AntDesign name="logout" size={24} color="black" />}
           label="Keluar"
-          onPress={() => dispatch({ type: 'SIGN_OUT' })}
+          onPress={() => {
+            props.navigation.navigate('Start');
+            dispatch({ type: 'SIGN_OUT' });
+          }}
           activeTintColor="#9BDEAC"
           inactiveTintColor="black"
         />

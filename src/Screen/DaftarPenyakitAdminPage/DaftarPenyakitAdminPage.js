@@ -117,8 +117,7 @@ const DaftarPenyakitAdminPage = ({ navigation }) => {
           headerTintColor: 'black',
           headerTitle: () => (
             <View>
-              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Sistem Pakar Diagnosa</Text>
-              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Penyakit Hewan Iguana</Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Daftar Penyakit</Text>
             </View>
           ),
         }}

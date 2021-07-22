@@ -12,7 +12,8 @@ function DrawerStartPage() {
     <>
       <Drawer.Navigator
         initialRouteName="Start"
-        drawerContent={(props) => <CustomDrawerContent {...props} />}
+        // drawerContent={(props) => <CustomDrawerContent {...props} />}
+        openByDefault={false}
       >
         <Drawer.Screen name="Start" component={StartPage} />
         <Drawer.Screen name="Login" component={LoginPage} />
